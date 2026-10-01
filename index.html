@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>𝕯𝖊𝖆𝖓'𝖘 𝖀𝖓𝖎𝖛𝖊𝖗𝖘𝖊 🍃 | KAIRO — Volcanic Spatial Expeditions</title>
+<meta name="description" content="Dean's Universe KAIRO. Private volcanic spatial expeditions. A remote architectural sanctuary reached by celestial and sea currents.">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+:root {
+  --font-display: "Bodoni Moda", serif;
+  --font-text: "Plus Jakarta Sans", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --ink: #ece6da;
+  --ink-2: #ece6dac7;
+  --ink-3: #ece6da99;
+  --line: rgba(255, 255, 255, 0.08);
+  --surface: #0a0c12;
+  --surface-2: #121520;
+  --plate: rgba(14, 17, 26, 0.85);
+  --plate-soft: rgba(14, 17, 26, 0.55);
+  --crimson: #fc3b56;
+  --gold: #d6ad63;
+  --btn-bg: #ece6da;
+  --btn-fg: #0a0c12;
+  --word: rgba(236, 230, 218, 0.12);
+  --sky-top: #05060a;
+  --sky-mid: #10131d;
+  --sky-low: #1d1b24;
+  --sky-horizon: #321c22;
+  --sun: rgba(252, 59, 86, 0.45);
+  --sun-2: rgba(214, 173, 99, 0.18);
+  --sun-3: rgba(252, 59, 86, 0.08);
+  --cloud: rgba(40, 42, 54, 0.55);
+  --dur: 1.4s;
+  --ease: cubic-bezier(0.77, 0, 0.18, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--font-text);
+  color: var(--ink);
+  background: var(--sky-top);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+.mono { font-family: var(--font-mono); }
+::selection { background: var(--crimson); color: #fff; }
+
+/* Fixed Dynamic Atmospheric Sky */
+.sky {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 42%, var(--sky-low) 72%, var(--sky-horizon) 100%);
+  overflow: hidden;
+}
+
+.sky__sun {
+  position: absolute;
+  top: 26vh;
+  left: 12vw;
+  width: 44vmax;
+  height: 44vmax;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, var(--sun) 0%, var(--sun-2) 20%, var(--sun-3) 45%, transparent 70%);
+}
+
+.sky__cloud {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(35px);
+  background: radial-gradient(ellipse at center, var(--cloud) 0%, transparent 65%);
+}
+.sky__cloud--a { width: 70vw; height: 40vh; bottom: -10vh; left: -10vw; }
+.sky__cloud--b { width: 60vw; height: 36vh; bottom: 5vh; right: -15vw; }
+
+/* Giant Wordmark Layer */
+.word {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 10vh;
+}
+.word__text {
+  font-family: var(--font-display);
+  font-size: clamp(100px, 20vw, 360px);
+  color: var(--word);
+  letter-spacing: 0.06em;
+  line-height: 0.9;
+  user-select: none;
+}
+
+/* Master Fixed Header */
+.header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(24px, 5vw, 64px);
+  z-index: 50;
+  background: rgba(8, 10, 15, 0.75);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.brand-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--crimson);
+  box-shadow: 0 0 10px var(--crimson);
+}
+
+/* Primary Button Styling */
+.btn {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding: 14px 28px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.btn--solid {
+  background: #ece6da;
+  color: #0a0c12;
+}
+.btn--solid:hover {
+  background: var(--gold);
+  color: #000;
+  box-shadow: 0 0 20px rgba(214, 173, 99, 0.4);
+  transform: translateY(-2px);
+}
+.btn--ghost {
+  border: 1px solid var(--line);
+  color: #ece6da;
+  background: rgba(255, 255, 255, 0.03);
+}
+.btn--ghost:hover {
+  border-color: var(--crimson);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* Story Scroller Panels */
+.story {
+  position: relative;
+  z-index: 10;
+}
+.panel {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 100px clamp(24px, 5vw, 64px);
+}
+.plate {
+  background: rgba(12, 15, 24, 0.82);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: clamp(32px, 5vw, 56px);
+  max-width: 640px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.6);
+}
+
+/* Expedition Tabs */
+.tabs-nav {
+  display: flex;
+  gap: 12px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 12px;
+  margin-bottom: 24px;
+}
+.tab-btn {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+.tab-btn.active {
+  color: var(--gold);
+  font-weight: 700;
+  border-bottom: 2px solid var(--gold);
+}
+
+/* Footer Section */
+footer {
+  position: relative;
+  z-index: 10;
+  background: #06070a;
+  border-top: 1px solid var(--line);
+  padding: 80px clamp(24px, 5vw, 64px) 40px;
+}
+</style>
+</head>
+
+<body>
+  <!-- Fixed Dynamic Sky Atmosphere -->
+  <div class="sky" aria-hidden="true">
+    <div class="sky__sun"></div>
+    <div class="sky__cloud sky__cloud--a"></div>
+    <div class="sky__cloud sky__cloud--b"></div>
+  </div>
+
+  <!-- Ambient Giant Wordmark -->
+  <div class="word" aria-hidden="true">
+    <div class="word__text">KAIRO</div>
+  </div>
+
+  <!-- Master Top Navigation -->
+  <header class="header">
+    <a href="#" class="brand">
+      <span class="brand-dot"></span>
+      <span>𝕯𝖊𝖆𝖓'𝖘 𝖀𝖓𝖎𝖛𝖊𝖗𝖘𝖊 <span class="text-[#d6ad63]">🍃</span></span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 mono text-xs font-bold text-neutral-400">
+      <a href="#hero" class="hover:text-white transition-colors">01//SANCTUARY</a>
+      <a href="#itinerary" class="hover:text-white transition-colors">02//PASSAGE</a>
+      <a href="#suites" class="hover:text-white transition-colors">03//THE_STAY</a>
+      <a href="#dispatch" class="hover:text-white transition-colors">04//DISPATCH</a>
+    </nav>
+    <a href="#dispatch" class="btn btn--solid text-xs py-2 px-5">
+      Initiate Ascent
+    </a>
+  </header>
+
+  <!-- Interactive Story Stream -->
+  <main class="story">
+    <!-- Panel 1: Hero Sanctuary -->
+    <section class="panel" id="hero">
+      <div class="plate space-y-6">
+        <span class="mono text-xs font-bold text-[#d6ad63] uppercase tracking-widest block">
+          // SPATIAL EXPEDITION ARCHITECTURE
+        </span>
+        <h1 class="text-4xl sm:text-6xl font-bold font-serif leading-[1.05] text-white">
+          A Remote Sanctuary, <br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-gold to-[#fc3b56]">
+            Reached By Sea.
+          </span>
+        </h1>
+        <p class="text-neutral-400 text-sm sm:text-base leading-relaxed font-light">
+          Private volcanic island expeditions. Twelve guests per sailing, six solitary cliffside pavilions, and absolute architectural stillness above the Pacific mistline.
+        </p>
+        <div class="flex flex-wrap gap-4 pt-2">
+          <a href="#itinerary" class="btn btn--solid">Explore Route</a>
+          <a href="#dispatch" class="btn btn--ghost">Confidential Charter</a>
+        </div>
+        <div class="pt-6 border-t border-white/10 flex items-center justify-between mono text-[11px] text-neutral-500">
+          <span>COORDINATES: 61° 24′ S · 148° 07′ W</span>
+          <span class="text-emerald-400">● 4 SAILINGS / YEAR</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Panel 2: The Three-Stage Passage -->
+    <section class="panel" id="itinerary">
+      <div class="plate space-y-6 max-w-2xl">
+        <span class="mono text-xs font-bold text-[#fc3b56] uppercase tracking-widest block">
+          // THE THREE-NIGHT PASSAGE
+        </span>
+        <h2 class="text-3xl sm:text-5xl font-bold font-serif text-white">
+          Temporal Immersion
+        </h2>
+        <div class="space-y-4 font-mono text-xs">
+          <div class="p-4 rounded-lg bg-white/[0.02] border border-white/10 flex items-start gap-4">
+            <span class="text-[#fc3b56] font-bold text-sm">01</span>
+            <div>
+              <div class="text-white font-bold text-sm mb-1">Passage One: Descent of Memory</div>
+              <p class="text-neutral-400 text-xs font-sans leading-relaxed">Acclimatization to absolute ocean silence. Thermal sulfur pools and high-salinity baths above the fog bank.</p>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-lg bg-white/[0.02] border border-white/10 flex items-start gap-4">
+            <span class="text-[#d6ad63] font-bold text-sm">02</span>
+            <div>
+              <div class="text-white font-bold text-sm mb-1">Passage Two: Suspension</div>
+              <p class="text-neutral-400 text-xs font-sans leading-relaxed">Architectural solitude along basalt ridges. Cantilevered tea pavilions over the southern ocean shelf.</p>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-lg bg-white/[0.02] border border-white/10 flex items-start gap-4">
+            <span class="text-emerald-400 font-bold text-sm">03</span>
+            <div>
+              <div class="text-white font-bold text-sm mb-1">Passage Three: The Clear Peak</div>
+              <p class="text-neutral-400 text-xs font-sans leading-relaxed">Nocturnal astronomical clarity. Zero artificial light pollution at 2,480m volcanic caldera elevation.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Panel 3: Suites & Experiences -->
+    <section class="panel" id="suites">
+      <div class="plate space-y-6 max-w-2xl">
+        <span class="mono text-xs font-bold text-[#d6ad63] uppercase tracking-widest block">
+          // CALDERA PAVILIONS
+        </span>
+        <h2 class="text-3xl sm:text-5xl font-bold font-serif text-white">
+          Architectural Solitude
+        </h2>
+        
+        <!-- Interactive Tabs Navigation -->
+        <div class="tabs-nav">
+          <button class="tab-btn active" onclick="switchSuite('cloud', this)">I // CLOUD SUITE</button>
+          <button class="tab-btn" onclick="switchSuite('ridge', this)">II // RIDGE SHELF</button>
+          <button class="tab-btn" onclick="switchSuite('hearth', this)">III // HEARTH CHAIR</button>
+        </div>
+
+        <!-- Dynamic Content Box -->
+        <div id="suite-content" class="space-y-4">
+          <h3 class="text-2xl font-serif text-white" id="suite-title">Cedar Cloud Pavilions</h3>
+          <p class="text-neutral-400 text-sm leading-relaxed" id="suite-desc">
+            Hand-hewn cedar beams assembled without metal fasteners. Radiant geothermal slate floors meeting sub-zero Antarctic currents through panoramic acoustic glass.
+          </p>
+          <div class="grid grid-cols-2 gap-4 pt-4 border-t border-white/10 font-mono text-xs text-neutral-400">
+            <div>CAPACITY: <span class="text-white">2 GUESTS</span></div>
+            <div>ELEVATION: <span class="text-white">1,820M</span></div>
+            <div>ACOUSTIC FLOOR: <span class="text-white">ZERO DB</span></div>
+            <div>THERMAL: <span class="text-emerald-400">GEOTHERMAL</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Panel 4: Dispatch / Booking Inquiry -->
+    <section class="panel" id="dispatch">
+      <div class="plate space-y-6 max-w-xl">
+        <span class="mono text-xs font-bold text-[#fc3b56] uppercase tracking-widest block">
+          // CONFIDENTIAL ALLOCATION
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-bold font-serif text-white">
+          Ascend to KAIRO
+        </h2>
+        <p class="text-neutral-400 text-xs sm:text-sm leading-relaxed">
+          Allocations are released strictly by personal dispatch to maintain total seclusion on the island.
+        </p>
+
+        <form class="space-y-4 font-mono text-xs" onsubmit="event.preventDefault(); alert('Dispatch transmission logged. Concierge will signal back via private carrier.');">
+          <input type="text" placeholder="GUEST CALLSIGN / NAME" required class="w-full bg-white/[0.03] border border-white/10 rounded px-4 py-3 text-white outline-none focus:border-[#d6ad63] transition-colors">
+          <input type="email" placeholder="CONFIDENTIAL DISPATCH EMAIL" required class="w-full bg-white/[0.03] border border-white/10 rounded px-4 py-3 text-white outline-none focus:border-[#d6ad63] transition-colors">
+          <button type="submit" class="btn btn--solid w-full justify-center">
+            Transmit Charter Intent ↗
+          </button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Master Footer -->
+  <footer>
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-xs font-mono text-neutral-500 gap-6">
+      <div>𝕯𝖊𝖆𝖓'𝖘 𝖀𝖓𝖎𝖛𝖊𝖗𝖘𝖊 🍃 // KAIRO VOLCANIC SANCTUARY &copy; 2026</div>
+      <div class="flex gap-8">
+        <a href="https://github.com/DEANSUNIVERSE" target="_blank" class="hover:text-white transition-colors">GITHUB</a>
+        <a href="https://linkedin.com/in/deandev" target="_blank" class="hover:text-white transition-colors">LINKEDIN</a>
+        <a href="mailto:epicgameglider@gmail.com" class="hover:text-white transition-colors">DISPATCH</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Interactive Suite Switcher Logic -->
+  <script>
+    const suites = {
+      cloud: {
+        title: "Cedar Cloud Pavilions",
+        desc: "Hand-hewn cedar beams assembled without metal fasteners. Radiant geothermal slate floors meeting sub-zero Antarctic currents through panoramic acoustic glass."
+      },
+      ridge: {
+        title: "Basalt Ridge Cantilever",
+        desc: "Suspended 800 meters directly over the surging Pacific caldera break. Internal micro-climate stabilization and private thermal sulfur plunge pools."
+      },
+      hearth: {
+        title: "Ceremonial Hearth Chamber",
+        desc: "High-altitude ceremonial oolong brewed over binchotan white charcoal. Pure acoustic seclusion shielded by natural obsidian stone formations."
+      }
+    };
+
+    function switchSuite(key, btn) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('suite-title').textContent = suites[key].title;
+      document.getElementById('suite-desc').textContent = suites[key].desc;
+    }
+  </script>
+</body>
+</html>
